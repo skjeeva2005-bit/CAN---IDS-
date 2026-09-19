@@ -1,0 +1,479 @@
+<?php
+session_start();
+include("dbconnect.php");
+extract($_REQUEST);
+$adminname=$_SESSION['adminname'];
+$rdate=date("d-m-Y");
+
+
+if(isset($btn))
+{
+	$qq=mysqli_query($connect,"select * from sat_user where uname='$uname'");
+	$nn=mysqli_num_rows($qq);
+	
+	if($nn==0)
+	{
+
+		$mq=mysqli_query($connect,"select max(id) from sat_user");
+	$mr=mysqli_fetch_array($mq);
+	$id=$mr['max(id)']+1;
+	
+		$k=md5($uname);
+		$key=substr($k,0,8);
+	
+	$ins=mysqli_query($connect,"insert into sat_user(id,name,mobile,email,mac_address,user_key,uname,pass,rdate,user) values($id,'$name','$mobile','$email','$mac','$key','$uname','$pass','$rdate','$adminname')");
+		
+		
+		?>
+		<script language="javascript">
+		window.location.href="view_user.php";
+		</script>
+		<?php
+		
+	}
+	else
+	{
+	?>
+	<script language="javascript">
+	window.location.href="admin.php?act=wrong";
+	</script>
+	<?php
+	}
+	
+}
+///
+if($act=="del")
+{
+mysqli_query($connect,"delete from sat_user where id=$did");
+?>
+<script language="javascript">
+window.location.href="admin.php";
+</script>
+<?php
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- basic -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- mobile metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <!-- site metas -->
+  <title><?php include("title.php"); ?></title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- fevicon -->
+  <link rel="icon" href="images/fevicon.png" type="image/gif" />
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- style css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Responsive-->
+  <link rel="stylesheet" href="css/responsive.css">  
+  <!-- Scrollbar Custom CSS -->
+  <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+  <!-- Tweaks for older IEs-->
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+
+<body class="main-layout">
+  <!-- loader  -->
+  <div class="loader_bg">
+    <div class="loader">QKD</div>
+  </div>
+  <!-- end loader -->
+  <!-- header -->
+  <header>
+    <!-- header inner -->
+    <div class="header-top">
+      <div class="header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-sm-3 col logo_section">
+              <div class="full">
+                <div class="center-desk">
+                  <div class="logo">
+                    <a href="index.html">QKD</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-10 col-lg-8 col-md-8 col-sm-9">
+              <div class="header_information">
+               <div class="menu-area">
+                <div class="limit-box">
+                  <nav class="main-menu ">
+                    <ul class="menu-area-main">
+                      <li> <a href="admin.php">Home</a> </li>
+                      <li class="active"> <a href="view_user.php">User</a> </li>
+                      <li> <a href="logout.php">Logout</a> </li>
+                     </ul>
+                   </nav>
+                 </div>
+               </div> 
+               <div class="mean-last">
+                       <a href="#"><img src="images/search_icon.png" alt="#" /></a> <a href="login.php">Login</a></div>              
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <!-- end header inner -->
+
+     <!-- end header -->
+     <section class="slider_section">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+
+            <div class="container-fluid padding_dd">
+              <div class="carousel-caption">
+                <div class="row">
+                  <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                    <div class="text-bg">
+                      <h1>QKD ATM-IOT</h1>
+                      <p>Internet-of-Things Device and Data Security System using End-to-End Quantum Key Cryptosystems</p>
+                      <a href="#">Read more</a> <a href="#">get a qoute</a>
+                    </div>
+                  </div>
+                  <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                    <div class="images_box">
+                      <figure></figure>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+
+            <div class="container-fluid padding_dd">
+              <div class="carousel-caption">
+
+                <div class="row">
+                  <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                    <div class="text-bg">
+                      <h1>QKD ATM-IOT</h1>
+                      <p>Internet-of-Things Device and Data Security System using End-to-End Quantum Key Cryptosystems</p>
+                      <a href="#">Read more</a><a href="#">get a qoute</a>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                    <div class="images_box">
+                      <figure></figure>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="carousel-item">
+
+            <div class="container-fluid padding_dd">
+              <div class="carousel-caption ">
+                <div class="row">
+                  <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                    <div class="text-bg">
+                      <h1>QKD ATM-IOT</h1>
+                      <p>Internet-of-Things Device and Data Security System using End-to-End Quantum Key Cryptosystems</p>
+                      <a href="#">Read more</a> <a href="#">get a qoute</a>
+                    </div>
+                  </div>
+                  <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                    <div class="images_box">
+                      <figure><img src="images/satc_hd.png"></figure>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+</section>
+</div>
+</header>
+
+
+
+<!-- about  -->
+
+
+<!-- end our -->
+<!-- Courses -->
+
+<!-- end Courses -->
+
+<!-- learn -->
+
+<!-- MAKE --> 
+
+<!-- end MAKE --> 
+<!-- end learn --> 
+
+
+<!-- contact -->
+<div id="contact" class="contact">
+  <div class="container-fluid padding_left2">
+    <div class="white_color">
+	<h2 align="center">Data Processing Center</h2>
+      <div class="row">
+		<div class="col-md-3">
+		</div>
+        <div class="col-md-8">
+          <!--<div id="map">
+          </div>-->
+		
+
+          <form method="post" class="contact_bg">
+           
+                <div class="titlepage">
+                  
+				  <h4>Add User Details</h4>
+                </div>
+                <?php
+				if($act=="wrong")
+				{
+				?>
+				<h6 style="color:#FF0000">Already Exist!</h6>
+				<?php
+				}
+				?>
+                  <input class="contactus" placeholder="Name" type="text" name="name">
+				  <input class="contactus" placeholder="Mobile No." type="text" name="mobile">
+				  <input class="contactus" placeholder="E-mail" type="text" name="email">
+				  <input class="contactus" placeholder="Unique Address" type="text" name="mac">
+                  <input class="contactus" placeholder="Username" type="text" name="uname">
+				  <input class="contactus" placeholder="Password" type="password" name="pass">
+                
+                 
+                
+                  <input class="send" type="submit" name="btn" value="Add">
+               
+            </form>
+         
+	
+	<div align="center"><a href="add_user.php">User Information</a></div>
+	<p>&nbsp;</p>
+	 <?php
+				  $qry3=mysqli_query($connect,"select * from sat_user where user='$adminname'");
+				  $num3=mysqli_num_rows($qry3);
+				  if($num3>0)
+				{
+				?>
+                  <table class="table table-striped thead-dark table-bordered table-hover">
+                    <thead>
+
+						
+                      <tr>
+						<th>S.No</th>
+						<th>Name</th>
+						<th>Mobile No.</th>
+						<th>E-mail</th>
+						<th>Unique Address</th>
+						<th>Username</th>
+						<th>ATM Van</th>
+						<th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+					<?php
+					$i=0;
+					while($row3=mysqli_fetch_array($qry3))
+					{
+					$i++;
+					?>
+					<tr>
+					 <td><?php echo $i; ?></td>
+					 <td><?php echo $row3['name']; ?></td>
+					 <td><?php echo $row3['mobile']; ?></td>
+					 <td><?php echo $row3['email']; ?></td>
+					 <td><?php echo $row3['mac_address']; ?></td>
+					 <td><?php echo $row3['uname']; ?></td>
+					 <td>
+					 <?php
+					 if($row3['satid']!="")
+					 {
+					 echo $row3['satid']." / ";
+					 }
+					 ?>
+					 <a href="assign.php?user=<?php echo $row3['uname']; ?>">Assign</a></td>
+					 <td><div class="col-md-3 col-sm-4"><a href="view_user.php?act=del&did=<?php echo $row3['id']; ?>" onClick="return del()"><i class="fa fa-fw fa-times"></i></a></div></td>
+					 </tr>
+					  <?php
+					 }
+					 ?>
+					
+					</tbody>
+                    
+				</table>
+				 <?php
+				}
+				else
+				{
+				echo "<p align=center>Empty Result!</p>";
+				}
+				?>
+	
+      </div>
+    </div>
+
+    <!-- end contact -->
+
+    <!--  footer -->
+    <footr>
+      <div class="footer ">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-md-12">
+              <form class="news">
+                <input class="newslatter" placeholder="Email" type="text" name=" Email">
+                <button class="submit" type="submit">Subscribe</button>
+              </form>
+            </div>
+            <div class="col-md-12">
+
+              <h2>Newsletter</h2>
+              <span>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in  </span>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+              <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 ">
+                  <div class="address">
+                    <h3>Contact us </h3>
+                    <ul class="loca">
+                      <li>
+                        <a href="#"><img src="icon/loc.png" alt="#" /></a>London 145
+                        <br>United Kingdom </li>
+                        <li>
+                          <a href="#"><img src="icon/email.png" alt="#" /></a>demo@gmail.com </li>
+                          <li>
+                            <a href="#"><img src="icon/call.png" alt="#" /></a>+12586954775 </li>
+                          </ul>
+                          <ul class="social_link">
+                            <li><a href="#"><img src="icon/fb.png"></a></li>
+                            <li><a href="#"><img src="icon/tw.png"></a></li>
+                            <li><a href="#"><img src="icon/lin(2).png"></a></li>
+                            <li><a href="#"><img src="icon/instagram.png"></a></li>
+                          </ul>
+
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="address">
+                          <h3>Courses</h3>
+                          <ul class="Menu_footer">
+                            <li class="active"> <a href="#">Masters Degree</a> </li>
+                            <li><a href="#">Post GraduateU</a> </li>
+                            <li><a href="#">Ndergraduate</a> </li>
+                            <li><a href="#">Engineering</a> </li>
+                            <li><a href="#">Ph.D Degree</a> </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="address">
+                          <h3>Information</h3>
+                          <ul class="Links_footer">
+                            <li class="active"><a href="#">Campus Tour</a> </li>
+                            <li><a href="#">Student Lifes</a> </li>
+                            <li><a href="#">Cholarship</a> </li>
+                            <li><a href="#"> Admission</a> </li>
+                            <li><a href="#">Leadership</a> </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-3 col-md-6 col-sm-6 ">
+                        <div class="address">
+                          <a href="index.html"> </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="copyright">
+                <div class="container">
+                  <p>QKD <a href="https://html.design/"> </a></p>
+                </div>
+              </div>
+            </div>
+          </footr>
+          <!-- end footer -->
+          <!-- Javascript files-->
+          <script src="js/jquery.min.js"></script>
+          <script src="js/popper.min.js"></script>
+          <script src="js/bootstrap.bundle.min.js"></script>
+          <script src="js/jquery-3.0.0.min.js"></script>
+          <script src="js/plugin.js"></script>
+          <!-- sidebar -->
+          <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+          <script src="js/custom.js"></script>
+          <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+          <script>
+// This example adds a marker to indicate the position of Bondi Beach in Sydney,
+// Australia.
+/*function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 11,
+    center: {
+      lat: 40.645037,
+      lng: -73.880224
+    },
+  });
+
+  var image = 'images/maps-and-flags.png';
+  var beachMarker = new google.maps.Marker({
+    position: {
+      lat: 40.645037,
+      lng: -73.880224
+    },
+    map: map,
+    icon: image
+  });
+}*/
+</script>
+<!-- google map js -->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>-->
+<!-- end google map js -->
+
+
+
+</body>
+</html>

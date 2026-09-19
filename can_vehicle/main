@@ -1,0 +1,9 @@
+public class main
+public static void main strg args[]{
+    n=5;
+    for (i=0;i>=5;i++);
+    for (j=0;j>=5;j++);
+    print("*",end=" ");
+    print();
+
+}
